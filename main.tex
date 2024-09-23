@@ -1,0 +1,144 @@
+\documentclass[a4paper,11pt,openright,numbers=noenddot]{scrreprt}
+
+\usepackage[utf8]{inputenc} % Einstellung der Eingabekodierung
+\usepackage[ngerman]{babel} % Deutsche Trennmuster
+\usepackage{newpxtext} % Schriftart Palatino
+\usepackage{newpxmath} % passende Mathe-Schrift
+\usepackage[T1]{fontenc} % Einstellung Schriftkodierung
+\usepackage{amsmath} % Mathematik-Erweiterungen
+\usepackage{microtype} % Verbesserte Mikrotypographie
+\usepackage{csquotes} % Kontextabhängige Anführungszeichen
+\usepackage{calc} % Berechnung von TeX-Maßen
+\usepackage[%
+  inner=25mm,%
+  outer=35mm,%
+  top=25mm,%
+  bottom=30mm,%
+  includeheadfoot,%
+  headheight=14pt,%
+  marginparwidth=25mm%
+]{geometry} % Anpassung Satzspiegel
+\usepackage{array} % Tabellen-Erweiterung
+\usepackage{graphicx} % Einbindung von Grafiken
+\usepackage{float} % Anpassung von Gleitumgebungen
+\usepackage{acro} % Abkürzungen
+\acsetup{make-links = true}
+\usepackage{listings} % Codeblöcke
+\usepackage{pgfplots} % Plots
+\pgfplotsset{compat=1.18}
+\usepackage{pgfplotstable} % CSV für Plots importieren
+\usepgfplotslibrary{statistics} % Boxplots
+\usepackage{csvsimple} % CSV für Tabellen importieren
+\usepackage{booktabs} % Tabellenlinien
+\usepackage{pdfpages} % Einbindung von externen PDFs
+\usepackage{letltxmacro} % redefining commands with optional arguments
+\usepackage{xcolor} % for colorlet command
+\usepackage{svg} % includesvg
+\usepackage{subcaption} % subfigures
+\usepackage{tikz}
+\usetikzlibrary{shapes, calc, positioning}
+\usepackage{environ} % scale tikz picture to width
+\usepackage{fixltx2e} % textsubscript
+\usepackage[titletoc]{appendix}
+
+\usepackage[style=apa,backend=biber,natbib]{biblatex}
+
+% auf Einbindungsreihenfolge achten
+\usepackage[hidelinks]{hyperref}
+
+
+% können nach Fertigstellung gelöscht werden
+% \usepackage{todonotes} % TODO-Anmerkungen
+% \usepackage{marginnote}
+% \let\marginpar\marginnote
+% \usepackage{lipsum} % Blindtexte
+% \usepackage{blindtext} % Blindtexte
+% \usepackage{layout} % Darstellung des Satzspiegels
+
+\input{latex/float}   % Anpassungen für Gleitumgebungen
+\input{latex/titlepage} % Formatvorlage für das Deckblatt
+\input{latex/simplesection} % Einfache Überschriften für Aufgabenstellung usw.
+\input{latex/declaration} % Formatvorlage für die Selbstständigkeitserklärung
+\input{latex/cmd} % util commands
+\input{latex/bib} % bib utils
+\input{latex/listings} % listings setup
+\input{latex/colors} % colors
+
+\input{misc/acronyms} % acronyms
+\input{misc/variables} % acronyms
+
+\hypersetup{
+  pdftitle=\thetitle,
+  pdfsubject=\thesubtitle,
+  pdfauthor=\theauthor,
+  colorlinks=false,
+}
+
+\addbibresource{bibliography.bib}
+
+\MakeOuterQuote{"} % könnte zu Problemen führen
+
+% \raggedbottom
+
+\begin{document}
+\pagenumbering{gobble}
+\input{misc/titlepage}
+
+\cleardoublepage
+\pagenumbering{roman}
+\currentpdfbookmark{Inhaltsverzeichnis}{toc}
+\tableofcontents
+
+\cleardoublepage
+\begingroup
+% \let\clearpage\relax
+% \let\cleardoublepage\relax
+\phantomsection
+\addcontentsline{toc}{chapter}{\listfigurename}
+\listoffigures
+
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{\lstlistlistingname}
+\lstlistoflistings
+
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{\listtablename}
+\listoftables
+\endgroup
+
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{Abkürzungen}
+\printacronyms
+
+
+\cleardoublepage
+\pagenumbering{arabic}
+
+\input{chapters/introduction}
+\input{chapters/2fa}
+\input{chapters/security}
+\input{chapters/usability}
+\input{chapters/fazit}
+
+%
+% Anhang
+%
+
+% \begin{appendices}
+% \part*{Anhang}
+% \end{appendices}
+
+
+% \nocite{*}
+\cleardoublepage
+\pdfbookmark[-1]{Literaturverzeichnis}{literature}
+\chapter*{Literaturverzeichnis}
+\printbibliography
+
+\cleardoublepage
+\pdfbookmark[-1]{Selbstständigkeitserklärung}{independence}
+\input{misc/declaration}
+\end{document}

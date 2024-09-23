@@ -1,0 +1,53 @@
+% https://tex.stackexchange.com/a/302313
+\makeatletter
+\newcommand{\newstarcommand}[1]{%
+  \DeclareRobustCommand#1{%
+    \@ifstar{\csname s\string#1\endcsname}{\csname n\string#1\endcsname}%
+  }%
+  \edef\meta@def@name{\string#1}%
+  \meta@def
+}
+\newcommand\meta@def[3][0]{%
+  \expandafter\newcommand\csname n\meta@def@name\endcsname[#1]{#2}%
+  \expandafter\newcommand\csname s\meta@def@name\endcsname[#1]{#3}%
+}
+\makeatother
+
+% todo footnotes
+% \newcounter{todocounter}
+% \setcounter{todocounter}{100}
+% \newcommand{\todo}[1]{\refstepcounter{todocounter}\textcolor{red}{\footnote[\thetodocounter]{\textcolor{gray}{TODO: #1}}}}
+
+% inline box notes
+\newcommand{\boxnote}[1]{%
+  \bigbreak
+  \begin{center}
+    \noindent\fbox{\parbox{0.85\textwidth}{#1}}
+  \end{center}
+  \bigbreak
+}
+
+% ignore rows in pgfplotstableread?
+\pgfplotstableset{%
+  cignore row/.style={
+    row predicate/.append code={
+      \ifnum#1=\pgfplotstablerow\relax
+        \pgfplotstableuserowfalse
+      \fi
+    }
+  },
+}
+
+% custom label
+\makeatletter
+\newcommand{\clabel}[2]{%
+   \protected@write \@auxout {}{\string \newlabel {#1}{{#2}{\thepage}{#2}{#1}{}} }%
+   \hypertarget{#1}{#2}%
+}
+\makeatother
+
+% paragraph label
+\newcommand{\plabel}[1]{\phantomsection\label{#1}}
+
+% pskip
+\newcommand{\pskip}{\vspace{\baselineskip}\noindent}

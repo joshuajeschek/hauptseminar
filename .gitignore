@@ -1,0 +1,16 @@
+*.aux
+*.bbl
+*.blg
+*.bcf
+*.lof
+*.log
+*.out
+*.pdf
+*.toc
+*.xml
+*.lol
+main.lot
+!assets/*.pdf
+notes/.note.tex
+documents/.document.tex
+svg-inkscape/

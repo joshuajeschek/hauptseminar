@@ -1,0 +1,35 @@
+name: Check format
+
+on: [push, pull_request]
+
+jobs:
+  check-format:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Setup TeX Live
+      uses: zauguin/install-texlive@v2
+      with:
+        packages: >
+          latexindent
+    - uses: shogo82148/actions-setup-perl@v1
+      with:
+        perl-version: '5.36'
+    - run: cpanm YAML::Tiny File::HomeDir
+
+    - name: Run format check
+      id: format
+      run: |
+        OUTPUT=$(./scripts/format.sh --print-diff | tee /dev/fd/2)
+        PROBLEMS=$(echo "$OUTPUT" | grep -oP 'Number of files with problems: \K\d+')
+        echo "problems=$PROBLEMS" >> $GITHUB_OUTPUT
+
+    - name: Raise warning if there are problems
+      run: |
+        count=${{ steps.format.outputs.problems }}
+        if [ "$count" -ne 0 ]; then
+          echo "::warning title=Format necessary!::There are $count files with problems"
+        fi

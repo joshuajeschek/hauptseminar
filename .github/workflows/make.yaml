@@ -1,0 +1,27 @@
+name: Compile hauptseminar
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - uses: xu-cheng/texlive-action/full@v1
+      with:
+        run: |
+          apk add inkscape
+          VERBOSE=true make
+
+    - name: Rename PDF
+      run: mv main.pdf hauptseminar.pdf
+
+    - name: Upload PDF
+      uses: actions/upload-artifact@v3
+      with:
+        name: hauptseminar
+        path: ./hauptseminar.pdf
+

@@ -1,0 +1,79 @@
+\defbibfilter{articles}{
+  type=article or
+  type=inproceedings or
+  type=report
+}
+
+\defbibfilter{books}{
+  type=book or
+  type=inbook or
+  type=incollection
+}
+
+\defbibfilter{software}{
+  type=software
+}
+
+\defbibfilter{other}{
+  not (
+    type=article or
+    type=inproceedings or
+    type=report or
+    type=book or
+    type=inbook or
+    type=incollection or
+    type=software
+  )
+}
+
+\DefineBibliographyStrings{ngerman}{
+  nodate = {{}o\adddot \space D\adddot},
+  mathesis = {Masterarbeit}
+}
+
+\makeatletter
+% cite the alias like this: OGC (2016) or Open Geospatial Consortium (OGC) (2016)
+\DeclareCiteCommand{\textcitealias}
+{\usebibmacro{prenote}}
+{\usebibmacro{citeindex}%
+  \printtext[bibhyperref]{\@citealias{\thefield{entrykey}} (\citeyear{\thefield{entrykey}})}}
+{\multicitedelim}
+{\usebibmacro{postnote}}
+
+% cite the alias like this: (OGC, 2016) or (Open Geospatial Consortium (OGC), (2016))
+\DeclareCiteCommand{\parencitealias}[\mkbibparens]
+{\usebibmacro{prenote}}
+{\usebibmacro{citeindex}%
+  \printtext[bibhyperref]{\@citealias{\thefield{entrykey}}, \citeyear{\thefield{entrykey}}}}
+{\multicitedelim}
+{\usebibmacro{postnote}}
+
+% cite the alias with a forced short form like this: OGC (2016)
+\DeclareCiteCommand{\textcitealiass}
+{\usebibmacro{prenote}}
+{\usebibmacro{citeindex}%
+  \printtext[bibhyperref]{\@citealias{\thefield{entrykey}S} (\citeyear{\thefield{entrykey}})}}
+{\multicitedelim}
+{\usebibmacro{postnote}}
+
+% cite the alias with a forced short form like this: (OGC, 2016)
+\DeclareCiteCommand{\parencitealiass}[\mkbibparens]
+{\usebibmacro{prenote}}
+{\usebibmacro{citeindex}%
+  \printtext[bibhyperref]{\@citealias{\thefield{entrykey}S}, \citeyear{\thefield{entrykey}}}}
+{\multicitedelim}
+{\usebibmacro{postnote}}
+\makeatother
+
+\defcitealias{ogcOGC}{\ac{OGC}}
+\defcitealias{ogcCatalogue2016}{\ac{OGC}}
+\defcitealias{ogcFiltering}{\ac{OGC}}
+\defcitealias{ogcFilteringS}{\acs*{OGC}}
+\defcitealias{ogcOGCAPI12022}{\ac{OGC}}
+\defcitealias{ogcOGCAPI22022}{\ac{OGC}}
+\defcitealias{ogcOGCAPI4}{\ac{OGC}}
+\defcitealias{ISO924111}{ISO/TC 159 Ergonomics SC 4}
+\defcitealias{unisd2021}{UNIS-D}
+\defcitealias{bootstrapIcons}{Bootstrap Icons}
+\defcitealias{scratchfoundationScratch}{Scratch}
+\defcitealias{monigSnap}{\textit{Snap!}}
