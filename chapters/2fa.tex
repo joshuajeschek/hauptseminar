@@ -1,4 +1,25 @@
 \chapter{Zwei-Faktor-Authentifizierungsmethoden}
+Die \ac{2FA} ist ein Sicherheitsverfahren, welches zwei unterschiedliche Komponenten zur Verifizierung der Identität von Nutzerinnen erfordert \parencite{decristofaroComparativeUsability2014}. Verschiedene Publikationen definieren dazu drei Kategorien \parencite{decristofaroComparativeUsability2014, yuEfficientGeneric2014, singhMultifactorAuthentication2017}:
+\begin{itemize}
+  \item \textbf{Wissen}: Etwas, was die Benutzerin weiß (z.B. Passwort, PIN)
+  \item \textbf{Besitz}: Etwas, was die Benutzerin besitzt (z.B. Smartphone, Physisches Token)
+  \item \textbf{Inhärenz}: Etwas, was die Benutzerin ist (z.B. Fingerabdruck, Gesichtserkennung)
+\end{itemize}
+Sobald Elemente aus verschiedenen Kategorien genutzt werden, handelt es sich um Multi-Faktor-Authentifizierung. Am meisten verbreitet ist \ac{2FA}, wobei Faktoren aus zwei der Kategorien abgefragt werden \parencite{decristofaroComparativeUsability2014}. Am Häufigsten wird \ac{2FA} mit einen Passwort und einem weiteren Faktor umgesetzt \parencite{decristofaroComparativeUsability2014}.
+
+\pskip
+\ac{2FA} stellt eine Verbesserung der Sicherheit gegenüber traditionellen Methoden, die nur einen Faktor verwenden (z.B. Passwörter), da es schwieriger ist, beide Faktoren zu kompromittieren \parencite{dasguptaMultiFactorAuthentication2017}.
+
+Des Weiteren werden gängige Angriffsmethoden wie Phishing oder Keylogging erschwert. Angreiferinnen können selbst wenn sie das Passwort wissen, nicht auf die Konten der Benutzerinnen zugreifen \parencite{dasguptaMultiFactorAuthentication2017}. Auch wenn Passwörter im Rahmen eines Daten-Leaks an die Öffentlichkeit geraten, ermöglicht dies keinen sofortigen Zugriff und gibt den Betroffenen Zeit, ihr Passwort anzupassen.
+
+\pskip
+In vielen Bereichen, wie beispielsweise dem Online-Banking und Regierungsbehörden, wird \ac{2FA} eingesetzt und ist Pflicht. Dennoch ist die Entwicklung von \ac{2FA}-Methoden noch nicht abgeschlossen und birgt einige Herausforderungen.
+
+Einerseits kann die Einführung eines zusätzlichen Authentifizierungsschrittes zu Lasten der Benutzerinnenerfahrung gehen \parencite{decristofaroComparativeUsability2014}. Andererseits werden durch zusätzliche Faktoren auch zusätzliche Implementierungskosten hervorgerufen, sei dies durch Hardware-Kosten (z.B. für Security-Tokens), technische Implementierung, oder Support \parencite{alsaleemMultiFactorAuthentication2021}.
+
+\pskip
+Im folgenden werden fünf gängige \ac{2FA}-Methoden vorgestellt. Dabei wird sowohl auf deren Funktionsweise, als auch auf Usability-Probleme und Sicherheitserwägungen eingegangen.
+
 \section{SMS}
 Sim Swapping
 SS7 Attacks
