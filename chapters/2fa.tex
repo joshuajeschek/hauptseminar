@@ -20,10 +20,40 @@ Einerseits kann die Einführung eines zusätzlichen Authentifizierungsschrittes 
 \pskip
 Im folgenden werden fünf gängige \ac{2FA}-Methoden vorgestellt. Dabei wird sowohl auf deren Funktionsweise, als auch auf Usability-Probleme und Sicherheitserwägungen eingegangen.
 
-\section{SMS}
-Sim Swapping
-SS7 Attacks
+\section{OTPs über SMS/Email}
+Eine der am häufigsten verbreiteten \ac{2FA}-Methoden ist die Benutzung von \acp{OTP} \parencite{decristofaroComparativeUsability2014}. Dabei handelt es sich um immer wieder neu generierte Passwörter oder PINs, die zusätzlich zu einem statischen Passwort angegeben werden müssen \parencite{geramiOneTimePasswords2016}. Das \ac{OTP} wird während des Login-Versuches auf dem Server generiert und über \acs{SMS} oder Email an die Nutzerin gesendet. Es ist nur einmalig nutzbar und verfällt in den meisten Fällen nach einer bestimmten Zeit \parencite{geramiOneTimePasswords2016}. Nach erfolgter Eingabe gleicht der Server das einigegebene \ac{OTP} mit dem zuvor generierten ab und beendet den Login-Vorgang mit Zulassung oder Abweisung.
+
+Die Nutzung von \acp{OTP}, die über SMS oder Email zugestellt werden ist weit verbreitet \parencite{decristofaroComparativeUsability2014}. Grund dafür ist die einfache Nutzung, die keine zusätzlichen Geräte oder zusätzliche Software benötigt \parencite{abhishekComprehensiveStudy2013}. Des Weiteren ist es einfach, diese Authentifzierungsmethode einzurichten, da es nur nötig ist, die Telefonnummer oder Email-Adresse der Nutzerin abzufragen. Auch die Implementierungskosten halten sich in Grenzen \parencite{abhishekComprehensiveStudy2013}.
+
+\subsubsection{Sicherheitsaspekte}
+\ac{OTP} ist im Allgemeinen resistent gegen Attacken wie Key-Logger und "Shoulder Surfing", da die Einmalpasswörter nach der ersten Benutzung verfallen \parencite{abhishekComprehensiveStudy2013}. Aus dem gleichen Grund können auch traditionelle Phishing-Attacken, welche Zugangsdaten abspeichern, um sie zu einem späteren Zeitpunkt wieder zu nutzen, gestoppt werden.
+
+\ac{MIM}-Attacken können jedoch durch \ac{OTP} nicht verhindert werden. Eine dritte Partei kann sich weiterhin als die Anwendung ausgeben, bei der sich die Nutzerin anmelden will und dann ihre Angaben annehmen und an die echte Anwendung weitergeben. Somit ist es auch möglich, sich Zugriff zum Konto der Nutzerin zu verschaffen, indem auch das \ac{OTP} entgegengenommen und im Namen der Nutzerin übermittelt wird.
+
+\pskip
+Außerdem muss sichergestellt werden, dass der gewählte Übertragungskanal für das \ac{OTP} sicher ist \parencite{abhishekComprehensiveStudy2013}. Eine Kompromittierung des statischen Passworts und des Übertragungskanals kann dazu führen, dass Angreiferinnen sich Zugriff verschaffen, indem sie einen Login-Versuch starten, das \ac{OTP} abfangen und dieses nutzen.
+
+Das häufig genutzte SMS-Protokoll stellt einen unsicheren Übertragungskanal dar \parencite{peetersSMSOTP2022}. Einerseits ist die Übertragung von SMS-Nachrichten größtenteils unverschlüsselt, mit der möglichen Ausnahme der Wegstrecke zwischen Sendemast und Mobiltelefon \parencite{peetersSMSOTP2022}. Andererseits existieren verschiedene \textit{redirection attacks}, bei denen böswillige Parteien Zugriff auf fremde Nachrichten erhalten können \parencite{peetersSMSOTP2022}. Dazu gehört \textit{Sim Swapping}, wobei durch Social Engineering die Kontrolle über eine Telefonnummer auf eine SIM-Karte im Besitz der Angreiferinnen übertragen wird \parencite{leeEmpiricalStudy2020}. In einer Studie von \textcite{leeEmpiricalStudy2020} wurde festgestellt, dass alle untersuchten Mobilfunkbetreiber unsichere Authentifizierungsmethoden verwenden. Dies wird darauf zurückgeführt, dass die Konzerne eine bessere Usability über die Sicherheit der Nutzerinnen stellen. Eine weitere Gruppe von \textit{redirection attacks} nutzen Schwächen im \ac{SS7}-Protokoll aus, um ohne das Wissen der Nutzerinnen auf deren Nachrichten, Standorte und Anrufe zuzugreifen \parencite{ullahSS7Vulnerabilities2020}.
+
+Auch die Übertragung von \acp{OTP} über Email stellt ein Sicherheitsrisiko dar. Einerseits verfügen viele Email-Konten nicht über \ac{2FA}, sind mit schwachen Passwörtern gesichert und besitzen Schwachstellen im Wiederherstellungsprozess \parencite{khannaAnatomyCompromising2012}. Andererseits sind Phishing-Attacken weiterhin ein beliebtes Mittel, bei dem menschliche Emotionen wie Verlustangst oder Gewinnerwartung genutzt werden, um Nutzerinnen zur Eingabe von Zugangsdaten zu bringen \parencite{goelGotPhished2017}.
+
+\pskip
+Während die Verwendung von \acp{OTP} über SMS und Email eine bessere Absicherung von Nutzerinnenkonten als ohne \ac{2FA} darstellt, existieren Methoden, die weitaus resistenter gegenüber bösartigen Attacken sind. In Abschnitt \ref{sec:totp} wird mit \ac{TOTP} auf eine solche Alternative eingegangen. Dabei fällt die Übermittlung der Einmalpasswörter vom Server an die Nutzerinnen weg, wodurch eine Angriffsvektoren ausgeschlossen werden können.
+
+\subsubsection{Usability}
+Aufgrund Usability und Integration in Leben SMS häufig \parencite{peetersSMSOTP2022}
+
 \section{TOTP}
+\label{sec:totp}
+\subsubsection{Sicherheitsaspekte}
+\subsubsection{Usability}
 \section{Vor-Generierte Codes}
+\subsubsection{Sicherheitsaspekte}
+\parencite[geht auf bingo cards ein]{abhishekComprehensiveStudy2013}
+\subsubsection{Usability}
 \section{Push Benachrichtigungen}
+\subsubsection{Sicherheitsaspekte}
+\subsubsection{Usability}
 \section{U2F Security-Tokens}
+\subsubsection{Sicherheitsaspekte}
+\subsubsection{Usability}
