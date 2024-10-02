@@ -41,7 +41,7 @@
 \usepackage{fixltx2e} % textsubscript
 \usepackage[titletoc]{appendix}
 
-\usepackage[style=apa,backend=biber,natbib]{biblatex}
+\usepackage[style=apa,backend=biber,natbib,doi=false]{biblatex}
 
 % auf Einbindungsreihenfolge achten
 \usepackage[hidelinks]{hyperref}
@@ -136,7 +136,7 @@
 \cleardoublepage
 \pdfbookmark[-1]{Literaturverzeichnis}{literature}
 \chapter*{Literaturverzeichnis}
-\printbibliography
+\printbibliography[heading=none]
 
 \cleardoublepage
 \pdfbookmark[-1]{Selbstständigkeitserklärung}{independence}
