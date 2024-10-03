@@ -16,7 +16,7 @@ Des Weiteren werden gängige Angriffsmethoden wie Phishing oder Keylogging ersch
 \pskip
 In vielen Bereichen, wie beispielsweise dem Online-Banking und Regierungsbehörden, wird \ac{2FA} eingesetzt und ist Pflicht. \textcite{decristofaroComparativeUsability2014} identifizieren drei Bereiche, in denen \ac{2FA} hauptsächlich genutzt wird: im Privaten, in Finanzanwendungen und auf der Arbeit. Dennoch ist die Entwicklung von \ac{2FA}-Methoden noch nicht abgeschlossen und birgt einige Herausforderungen.
 
-Einerseits kann die Einführung eines zusätzlichen Authentifizierungsschrittes zu Lasten der Benutzerinnenerfahrung gehen \parencite{decristofaroComparativeUsability2014}. Andererseits werden durch zusätzliche Faktoren auch zusätzliche Implementierungskosten hervorgerufen, sei dies durch Hardware-Kosten (z.B. für Security-Tokens), technische Implementierung, oder Support \parencite{alsaleemMultiFactorAuthentication2021}.
+Einerseits kann die Einführung eines zusätzlichen Authentifizierungsschrittes zu Lasten der Benutzerinnenerfahrung gehen \parencite{decristofaroComparativeUsability2014}. Andererseits werden durch zusätzliche Faktoren auch zusätzliche Implementierungskosten hervorgerufen, sei dies durch Hardware-Kosten (z.B. für Security Keys), technische Implementierung, oder Support \parencite{alsaleemMultiFactorAuthentication2021}.
 
 \pskip
 Im folgenden werden fünf gängige \ac{2FA}-Methoden vorgestellt. Dabei wird sowohl auf deren Funktionsweise, als auch auf Usability-Probleme und Sicherheitserwägungen eingegangen.
@@ -30,7 +30,7 @@ Die Nutzung von \acp{OTP}, die über SMS oder Email zugestellt werden ist weit v
 
 \subsubsection{Sicherheitsaspekte}
 
-\ac{OTP} ist im Allgemeinen resistent gegen Attacken wie Key-Logger und "Shoulder Surfing", da die Einmalpasswörter nach der ersten Benutzung verfallen \parencite{abhishekComprehensiveStudy2013}. Aus dem gleichen Grund können auch traditionelle Phishing-Attacken, welche Zugangsdaten abspeichern, um sie zu einem späteren Zeitpunkt wieder zu nutzen, gestoppt werden.
+\ac{OTP} ist im Allgemeinen resistent gegen Attacken wie Key-Logger und "Shoulder Surfing", da die Einmalpasswörter nach der ersten Benutzung verfallen \parencite{abhishekComprehensiveStudy2013}. Aus dem gleichen Grund können auch traditionelle Phishing-Attacken, welche Zugangsdaten abspeichern, um sie zu einem späteren Zeitpunkt wieder zu nutzen, gestoppt werden. Während Echtzeit-Phishing schwieriger umzusetzen ist, ist es auch schwieriger zu stoppen \parencite{langSecurityKeys2017}.
 
 Des Weiteren sind \acp{OTP} aufgrund des begrenzten Zeitfensters der Nutzung relativ unanfällig gegenüber Brute-Force-Attacken \parencite{reeseUsabilityStudy2019}. Auf dem Server müssen die Einmalpasswörter sicher gespeichert werden, dabei kann aber ein Hashing-Algorithmus hilfreich sein \parencite{reeseUsabilityStudy2019}.
 
@@ -105,6 +105,32 @@ Push-Benachrichtigungen sind deutlich weniger fehleranfällig als die zuvor betr
 
 Die Benutzung von Push-Benachrichtigungen setzt eine aktive Internetverbindung voraus, sollte diese schlecht sein, könnte das Nutzungserlebnis dieser \ac{2FA}-Methode verringert werden \parencite{reeseUsabilityStudy2019}. Es könnte beispielsweise zu einer verspäteten Zustellung der Benachrichtigung, und somit zu unnötigen Verzögerungen kommen.
 
-\section{U2F Security-Tokens}
+\section{U2F Security Keys}
+
+Der \ac{U2F} wurde als ein offener Authentifizierungsstandard für die Nutzung mit USB-Geräte entwickelt. Ziel war es, eine äußerst sichere \ac{2FA}-Methode mit guter Usability zu entwickeln \parencite{langSecurityKeys2017}. In Abbildung \ref{fig:yubikey} sind aktuell angebotene \ac{U2F} Security Keys der Marke Yubico dargestellt. Um sich mit ihnen zu authentifizieren, muss nach erfolgte Passworteingabe das Security Keys eingesteckt werden, und bei Aufforderung aktiviert werden \parencite{reeseUsabilityStudy2019}.
+
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=0.95\textwidth]{assets/yubikey-5.png}
+  \end{center}
+  \caption[Verschiedene U2F Security Keys von Yubico.]{Verschiedene U2F Security Keys von Yubico (v.l.n.r.): YubiKey 5 NFC, YubiKey 5C NFC, YubiKey 5Ci, YubiKey 5 Nano und YubiKey 5C Nano.\\\parencite{yubicoYubiKeySeries2024}}
+  \label{fig:yubikey}
+\end{figure}
+
+Die genannte Aktivierung wird von verschiedenen Herstellern unterschiedlich umgesetzt. Angeboten werden Produkte mit kapazitiven Touch-Sensoren (z.B. von Yubico, siehe Abbildung \ref{fig:yubikey}) oder mit mechanischen Knöpfen \parencite{langSecurityKeys2017}. Es existieren auch Geräte, die beim Einführen automatisch aktiviert werden, und somit für jede Authentifizierung erneut eingesteckt werden müssen \parencite{langSecurityKeys2017}.
+
+Der \ac{U2F}-Standard wird über eine Public-Key-Private-Key-Architektur umgesetzt. Dabei wird vom Security Key bei der Registration ein öffentlicher Schlüssel erstellt, der an die Anwendung übermittelt wird \parencite{langSecurityKeys2017}. Der private Schlüssel verlässt das Gerät nie, und wird im tagtäglichen Gebrauch dazu genutzt, Zeichenketten zu erstellen, die mithilfe des öffentlichen Schlüssels überprüft werden können \parencite{reeseUsabilityStudy2019}.
+
 \subsubsection{Sicherheitsaspekte}
+
+Security Keys sind gegenüber den anderen \ac{2FA}-Methoden deutlich sicherer. Eine Durchführung von (Echtzeit-)Phishing-Attacken ist bei der Nutzung von \ac{U2F} nicht möglich \parencite{langSecurityKeys2017}. Shoulder-Surfing und Keylogging wird durch die Länge der Zeichenkette und ein Verzicht auf eine manuelle Eingabe erschwert. Des Weiteren werden viele Angriffsvektoren durch einen komplexen Transaktionsaufbau erschwert. Das \ac{U2F}-Protokoll arbeitet beispielsweise auch mit \textit{TLS Channel IDs}, welche genutzt werden können um die Echtheit der Antwort des Security Keys zu überprüfen \parencite{langSecurityKeys2017}. Somit werden sogar \ac{MIM}-Attacken erschwert \parencite{langSecurityKeys2017}.
+
+Das Hauptrisiko bei der Nutzung von \ac{U2F} stellt ein Verlust oder Diebstahl des Security Keys dar, dies ist jedoch auch bei den zuvor genannten \ac{2FA}-Methode der Fall \parencite{reeseUsabilityStudy2019}. Ein gezielter Diebstahl ist jedoch zeit- und kostenintensiv und für die gleichzeitige Kompromittierung von vielen Accounts nicht praktikabel.
+
 \subsubsection{Usability}
+
+\ac{U2F} Security Keys weisen im Vergleich auf zu anderen \ac{2FA}-Methoden weniger Fehlerfälle auf \parencite{langSecurityKeys2017}, da eine manuelle Eingabe von Codes nicht benötigt wird. Auch der Nutzungsaufwand wird als gering angesehen, da nur ein Knopf gedrückt und der Security Key eingesteckt werden muss \parencite{langSecurityKeys2017}. Des Weiteren beschreibt \textcite{langSecurityKeys2017} die Funktionsweise von Security Keys als effizient und einfach zu erlernen.
+
+Laut der Studie von \textcite{reeseUsabilityStudy2019} wurde die Verfügbarkeit des Security Keys als zusätzliche Hürde für die \ac{2FA} identifiziert. Je nach Aufbewahrungsmethode entstand so ein Mehraufwand, um das Gerät zu besorgen.
+
+Schlussendlich werden \ac{U2F} Security Keys von \textcite{langSecurityKeys2017} als barrierearm beschrieben, da nur ein Knopfdruck erforderlich ist. Sehbehinderte Menschen müssen somit keine Zahlen ablesen und eintippen.
