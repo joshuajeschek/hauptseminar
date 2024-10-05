@@ -14,17 +14,26 @@ Sobald Elemente aus verschiedenen Kategorien genutzt werden, handelt es sich um 
 Des Weiteren werden gängige Angriffsmethoden wie Phishing oder Keylogging erschwert. Angreiferinnen können selbst wenn sie das Passwort wissen, nicht auf die Konten der Benutzerinnen zugreifen \parencite{dasguptaMultiFactorAuthentication2017}. Auch wenn Passwörter im Rahmen eines Daten-Leaks an die Öffentlichkeit geraten, ermöglicht dies keinen sofortigen Zugriff und gibt den Betroffenen Zeit, ihr Passwort anzupassen.
 
 \pskip
-In vielen Bereichen, wie beispielsweise dem Online-Banking und Regierungsbehörden, wird \ac{2FA} eingesetzt und ist Pflicht. \textcite{decristofaroComparativeUsability2014} identifizieren drei Bereiche, in denen \ac{2FA} hauptsächlich genutzt wird: im Privaten, in Finanzanwendungen und auf der Arbeit. Dennoch ist die Entwicklung von \ac{2FA}-Methoden noch nicht abgeschlossen und birgt einige Herausforderungen.
+In vielen Bereichen, wie beispielsweise dem Online-Banking und Regierungsbehörden, wird \ac{2FA} eingesetzt und ist Pflicht. \textcite{decristofaroComparativeUsability2014} identifizieren drei Bereiche, in denen \ac{2FA} hauptsächlich genutzt wird: im Privaten, in Finanzanwendungen und auf der Arbeit. Abbildung \ref{fig:use} zeigt, in welchem Bereich welche \ac{2FA}-Methode genutzt wird. Zu sehen ist, dass \acp{OTP} über SMS und Email (Vgl. \ref{sec:otp}) im Privaten und bei Finanzanwendungen am meisten genutzt wird. Insbesondere viele Banken unterstützen zum Zeitpunkt der Studie diese \ac{2FA}-Methode \parencite{decristofaroComparativeUsability2014}. Die Verwendung von Apps zur Authentifizierung findet im privaten Bereich am Meisten Anklang. Eine wesentliche Beobachtung ist die überwiegende Verwendung von physischen Tokens im professionellen Bereich. Während sich in der Studie von \textcite{decristofaroComparativeUsability2014} auf Tokens, welche Einmalpasswörter zur manuellen Eingabe generieren, wird im Rahmen dieser Arbeit nicht gesondert auf sie eingegangen. Die Erkenntnis, dass Unternehmen physische Geräte bevorzugen \parencite{decristofaroComparativeUsability2014}, bleibt jedoch bestehen. Es könnte argumentiert werden, dass Unternehmen somit auch eher bereit sind, \acs{U2F} Security Keys (Vgl. \ref{sec:u2f}) für ihre Mitarbeiterinnen bereitzustellen.
 
-Einerseits kann die Einführung eines zusätzlichen Authentifizierungsschrittes zu Lasten der Benutzerinnenerfahrung gehen \parencite{decristofaroComparativeUsability2014}. Andererseits werden durch zusätzliche Faktoren auch zusätzliche Implementierungskosten hervorgerufen, sei dies durch Hardware-Kosten (z.B. für Security Keys), technische Implementierung, oder Support \parencite{alsaleemMultiFactorAuthentication2021}.
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=0.95\textwidth]{assets/use.png}
+  \end{center}
+  \caption[Häufigkeit der Nutzung verschiedener \acs{2FA}-Methoden]{Häufigkeit der Nutzung verschiedener \acs{2FA}-Methoden in verschiedenen Kontexten.\\\parencite[6]{decristofaroComparativeUsability2014}}
+  \label{fig:use}
+\end{figure}
+
+
+Trotz steigender Adoptionsraten ist die Entwicklung von \ac{2FA}-Methoden noch nicht abgeschlosse und birgt einige Herausforderungen, die eine weitreichende Nutzung verhindern könnten. Einerseits kann die Einführung eines zusätzlichen Authentifizierungsschrittes zu Lasten der Benutzerinnenerfahrung gehen \parencite{decristofaroComparativeUsability2014}. Andererseits werden durch zusätzliche Faktoren auch zusätzliche Implementierungskosten hervorgerufen, sei dies durch Hardware-Kosten (z.B. für Security Keys), technische Implementierung, oder Support \parencite{alsaleemMultiFactorAuthentication2021}.
 
 \pskip
 Im folgenden werden fünf gängige \ac{2FA}-Methoden vorgestellt. Dabei wird sowohl auf deren Funktionsweise, als auch auf Usability-Probleme und Sicherheitserwägungen eingegangen.
 
-\section{OTPs über SMS/Email}
+\section{\acsp{OTP} über SMS/Email}
 \label{sec:otp}
 
-Die laut einer Studie von \citeyear{decristofaroComparativeUsability2014} am häufigsten verbreitete \ac{2FA}-Methode sind \acp{OTP} über SMS und Email \parencite{decristofaroComparativeUsability2014}\footnote{Nur im professionellen Kontext werden Hardware-Tokens mehr als \acp{OTP} über SMS und Email verwendet \parencite{decristofaroComparativeUsability2014}.}. Dabei handelt es sich um immer wieder neu generierte Passwörter oder PINs, die zusätzlich zu einem statischen Passwort angegeben werden müssen \parencite{geramiOneTimePasswords2016}. Das \ac{OTP} wird während des Login-Versuches auf dem Server generiert und über \acs{SMS} oder Email an die Nutzerin gesendet. Es ist nur einmalig nutzbar und verfällt in den meisten Fällen nach einer bestimmten Zeit \parencite{geramiOneTimePasswords2016}. Nach erfolgter Eingabe gleicht der Server das eingegebene \ac{OTP} mit dem zuvor generierten ab und beendet den Login-Vorgang mit Zulassung oder Abweisung.
+Die laut einer Studie von \citeyear{decristofaroComparativeUsability2014} am häufigsten verbreitete \ac{2FA}-Methode sind \aclp{OTP} über SMS und Email \parencite{decristofaroComparativeUsability2014}\footnote{Nur im professionellen Kontext werden Hardware-Tokens mehr als \acp{OTP} über SMS und Email verwendet \parencite{decristofaroComparativeUsability2014}.}. Dabei handelt es sich um immer wieder neu generierte Passwörter oder PINs, die zusätzlich zu einem statischen Passwort angegeben werden müssen \parencite{geramiOneTimePasswords2016}. Das \ac{OTP} wird während des Login-Versuches auf dem Server generiert und über \acs{SMS} oder Email an die Nutzerin gesendet. Es ist nur einmalig nutzbar und verfällt in den meisten Fällen nach einer bestimmten Zeit \parencite{geramiOneTimePasswords2016}. Nach erfolgter Eingabe gleicht der Server das eingegebene \ac{OTP} mit dem zuvor generierten ab und beendet den Login-Vorgang mit Zulassung oder Abweisung.
 
 Die Nutzung von \acp{OTP}, die über SMS oder Email zugestellt werden ist weit verbreitet \parencite{decristofaroComparativeUsability2014}. Grund dafür ist die einfache Nutzung, die keine zusätzlichen Geräte oder zusätzliche Software benötigt \parencite{abhishekComprehensiveStudy2013}. Des Weiteren ist es einfach, diese Authentifzierungsmethode einzurichten, da es nur nötig ist, die Telefonnummer oder Email-Adresse der Nutzerin abzufragen. Auch die Implementierungskosten halten sich in Grenzen \parencite{abhishekComprehensiveStudy2013}.
 
@@ -106,6 +115,7 @@ Push-Benachrichtigungen sind deutlich weniger fehleranfällig als die zuvor betr
 Die Benutzung von Push-Benachrichtigungen setzt eine aktive Internetverbindung voraus, sollte diese schlecht sein, könnte das Nutzungserlebnis dieser \ac{2FA}-Methode verringert werden \parencite{reeseUsabilityStudy2019}. Es könnte beispielsweise zu einer verspäteten Zustellung der Benachrichtigung, und somit zu unnötigen Verzögerungen kommen.
 
 \section{U2F Security Keys}
+\label{sec:u2f}
 
 Der \ac{U2F} wurde als ein offener Authentifizierungsstandard für die Nutzung mit USB-Geräte entwickelt. Ziel war es, eine äußerst sichere \ac{2FA}-Methode mit guter Usability zu entwickeln \parencite{langSecurityKeys2017}. In Abbildung \ref{fig:yubikey} sind aktuell angebotene \ac{U2F} Security Keys der Marke Yubico dargestellt. Um sich mit ihnen zu authentifizieren, muss nach erfolgte Passworteingabe das Security Keys eingesteckt werden, und bei Aufforderung aktiviert werden \parencite{reeseUsabilityStudy2019}.
 
@@ -113,7 +123,7 @@ Der \ac{U2F} wurde als ein offener Authentifizierungsstandard für die Nutzung m
   \begin{center}
     \includegraphics[width=0.95\textwidth]{assets/yubikey-5.png}
   \end{center}
-  \caption[Verschiedene U2F Security Keys von Yubico.]{Verschiedene U2F Security Keys von Yubico (v.l.n.r.): YubiKey 5 NFC, YubiKey 5C NFC, YubiKey 5Ci, YubiKey 5 Nano und YubiKey 5C Nano.\\\parencite{yubicoYubiKeySeries2024}}
+  \caption[Verschiedene U2F Security Keys von Yubico]{Verschiedene U2F Security Keys von Yubico (v.l.n.r.): YubiKey 5 NFC, YubiKey 5C NFC, YubiKey 5Ci, YubiKey 5 Nano und YubiKey 5C Nano.\\\parencite{yubicoYubiKeySeries2024}}
   \label{fig:yubikey}
 \end{figure}
 
@@ -134,3 +144,57 @@ Das Hauptrisiko bei der Nutzung von \ac{U2F} stellt ein Verlust oder Diebstahl d
 Laut der Studie von \textcite{reeseUsabilityStudy2019} wurde die Verfügbarkeit des Security Keys als zusätzliche Hürde für die \ac{2FA} identifiziert. Je nach Aufbewahrungsmethode entstand so ein Mehraufwand, um das Gerät zu besorgen.
 
 Schlussendlich werden \ac{U2F} Security Keys von \textcite{langSecurityKeys2017} als barrierearm beschrieben, da nur ein Knopfdruck erforderlich ist. Sehbehinderte Menschen müssen somit keine Zahlen ablesen und eintippen.
+
+\section{Usability im Vergleich}
+
+Im Rahmen einer Studie von \textcite{reeseUsabilityStudy2019} wurden die hier betrachteten \ac{2FA}-Methoden auf ihre Usability untersucht. Dabei wurde die alltägliche Nutzung getrennt vom Einrichtungsprozess betrachtet.
+
+Um die \ac{2FA}-Methoden im alltäglichen Gebrauch zu testen, führten \textcite{reeseUsabilityStudy2019} eine Studie mit 72 Teilnehmerinnen durch. Getestet wurden die \ac{2FA}-Methoden anhand einer Banking-Website. Die quantitativen Ergebnisse der Studie sind in Abbildung \ref{fig:auth} zu sehen. Es wurde gemessen, wie lange die Teilnehmerinnen zum authentifizieren mit der genutzten Methode benötigen. Wie in Abbildung \ref{fig:auth-time} zu sehen ist, konnte bei \ac{U2F} Security Keys die kleinste Zeit zur Authentifizierung festgestellt werden, gefolgt von Push-Benachrichtigungen \parencite{reeseUsabilityStudy2019}. Der Großteil der Authentifizierungsversuche konnte in unter einer halben Minute abgeschlossen werden. Die niedrigste Varianz weißen Push-Benachrichtigungen auf, während bei den anderen Methoden unterschiedliche Verzögerungen die Authentifizierungszeit vergrößerten, wie zum Beispiel der Aufbewahrungsort des zweiten Faktors (Vor-Generierte Codes, \ac{U2F} Security Keys), die Zustellungszeit vom SMS oder Timeouts beim Eingeben von \acp{TOTP}.
+
+\begin{figure}[!ht]
+  \centering
+  \begin{subfigure}{.42\textwidth}
+    \includegraphics[width=\linewidth]{assets/auth-time.png}
+    \caption{Zeit, um \acs{2FA} durchzuführen.}
+    \label{fig:auth-time}
+  \end{subfigure}
+  \hspace{.025\textwidth}
+  \begin{subfigure}{.505\textwidth}
+    \includegraphics[width=\linewidth]{assets/auth-sus.png}
+    \caption{Bewertung der \acs{2FA}-Methoden über \acs{SUS}.}
+    \label{fig:auth-sus}
+  \end{subfigure}
+  \caption[Quantitative Metriken zur Nutzung verschiedener \acs{2FA}-Methoden]{Quantitative Metriken zur Nutzung verschiedener \acs{2FA}-Methoden. Einerseits wurde die benötigte Zeit gemessen, andererseits wurde mittels der \acf{SUS} die erfahrene Einfachheit der Nutzung abgefragt.\\\parencite[362,363]{reeseUsabilityStudy2019}}
+  \label{fig:auth}
+\end{figure}
+
+Im Anschluss an die zweiwöchige Testphase wurden die Teilnehmerinnen gebeten, die Authentifizierung auf der \ac{SUS} zu bewerten \parencite{reeseUsabilityStudy2019}. Wie in Abbildung \ref{fig:auth-sus} zu sehen ist, schnitten pure Passwörter bei der Bewertung durch die Kontrollgruppe am Besten ab, gefolgt von \acp{TOTP} \parencite{reeseUsabilityStudy2019}. Den niedrigsten Median verzeichnen sowohl SMS als auch \ac{U2F} - und das obwohl die Authentifizierungszeit von \ac{U2F} Security Keys am niedrigsten ist. Die Nutzungserfahrung mit \ac{U2F} scheint jedoch subjektiver zu sein, da sich eine größere Varianz innerhalb der Antworten feststellen lässt.
+
+Die niedrigeren \ac{SUS}-Ergebnisse von \ac{TOTP} und \ac{U2F} trotz ihrer schnellen Authentifizierungszeit können laut \textcite{reeseUsabilityStudy2019} auf technische Probleme zurückgeführt werden. \acp{TOTP} über die Google Authenticator App wurden als am Besten eingestuft, da die Teilnehmerinnen mit dem Prinzip von \acp{OTP} über SMS vertraut waren, aber keine Netzwerkverbindung benötigten \parencite{reeseUsabilityStudy2019}. Auch das einfache Design der Google Authenticator App spielte eine Rolle \parencite{reeseUsabilityStudy2019}.
+
+\pskip
+Des Weiteren testeten \textcite{reeseUsabilityStudy2019} den Einrichtungsprozess der \ac{2FA}-Methoden. Alle Teilnehmerinnen mussten jede der fünf \ac{2FA}-Methoden einrichten. Dabei wurde sowohl die benötigte Zeit, als auch die erfahrene Usability überprüft (Abbildung \ref{fig:setup}).
+
+\begin{figure}[!ht]
+  \centering
+  \begin{subfigure}{.40\textwidth}
+    \includegraphics[width=\linewidth]{assets/setup-time.png}
+    \caption{Zeit, um \acs{2FA} einzurichten.}
+    \label{fig:setup-time}
+  \end{subfigure}
+  \hspace{.025\textwidth}
+  \begin{subfigure}{.525\textwidth}
+    \includegraphics[width=\linewidth]{assets/setup-seq.png}
+    \caption{Bewertung des Einrichtungsprozess mit der \acs{SEQ}.}
+    \label{fig:setup-seq}
+  \end{subfigure}
+  \caption[Quantitative Metriken zur Einrichtung verschiedener \acs{2FA}-Methoden]{Quantitative Metriken zur Einrichtung verschiedener \acs{2FA}-Methoden. Einerseits wurde die benötigte Zeit zur Einrichtung gemessen, andererseits wurde mittels der \acf{SEQ} die erfahrene Einfachheit der Nutzung abgefragt.\\\parencite[367,368]{reeseUsabilityStudy2019}}
+  \label{fig:setup}
+\end{figure}
+
+Die gemessene benötigte Zeit zur Einrichtung der \ac{2FA}-Methoden ist in Abbildung \ref{fig:setup-time} zu sehen. Vor-Generierte Codes benötigten am wenigsten Zeit, da nur ein Knopf auf der Website gedrückt werden musste, um die Codes zu generieren \parencite{reeseUsabilityStudy2019}. Das Abspeichern oder Ausdrucken der Codes wurde nicht berücksichtigt. Die schnelle Authentifizierungszeit von \ac{U2F} Security Keys wird von einer vergleichsweise sehr langsamen Einrichtungszeit kontrastiert \parencite{reeseUsabilityStudy2019}. \acp{TOTP} benötigten am meisten Zeit zur Einrichtung \parencite{reeseUsabilityStudy2019}.
+
+Die Antworten auf die \ac{SEQ} bezüglich der Einfachheit der Einrichtung sind in Abbildung \ref{fig:setup-seq} zu sehen. Mit Ausnahme von vor-generierten Codes wurde die Erfahrung als besser bewertet, je schneller die Einrichtung vollzogen wurde \parencite{reeseUsabilityStudy2019}. \textcite{reeseUsabilityStudy2019} vermuten jedoch, dass Fragen über die tagtägliche Nutzungstauglichkeit die Antworten von vor-generierten Codes beeinflussen könnten. Während \acp{TOTP} während der zweiwöchigen Studie die besten Bewertungen erhielt, schnitten sie bei der Einrichtung am schlechtesten ab. Es könnte sein, dass die Teilnehmerinnen weniger vertraut mit dem Einrichtungsprozess waren, als mit dem von weiter verbreiteten Methoden, wie zum Beispiel \acp{OTP} über SMS \parencite{reeseUsabilityStudy2019}.
+
+\pskip
+Die Studienresultate zeigen, dass \ac{2FA}-Authentifizierung als einfach angesehen werden kann, wenn sie gut implementiert wird \parencite{reeseUsabilityStudy2019}. \ac{U2F} Security Keys zeigen Potential, da sie sehr sicher und schnell in der Benutzung sind. Die Studie zeigt jedoch Probleme in Sachen Zuverlässigkeit und Einfachheit der Benutzung auf, und gibt Empfehlungen über bessere Unterstützung während der Einrichtung \parencite{reeseUsabilityStudy2019}. Sowohl mit \ac{U2F}, als auch mit Push-Benachrichtigungen konnte eine Verringerung der Login-Zeiten im Laufe der Studie festgestellt werden \parencite{reeseUsabilityStudy2019}.
